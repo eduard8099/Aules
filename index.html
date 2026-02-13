@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aules - Generalitat Valenciana</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:white;
+    color:#333;
+}
+
+.topbar{
+    background:white;
+    border-bottom:1px solid #cfcfcf;
+    padding:8px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logos{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.img-placeholder{
+    background:#d9d9d9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    color:#555;
+}
+
+.logo-gva {
+    width:160px;
+    height:40px;
+}
+
+.logo-aules {
+    width:200px;   
+    height:100px;   
+    display:block;
+}
+
+.right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    font-size:13px;
+    background:white;
+}
+
+.search-box input{
+    padding:4px 6px;
+    border:1px solid #999;
+}
+
+
+nav{
+    background:white;
+    border-bottom:2px solid black;
+    padding:10px 40px;
+    display:flex;
+    gap:30px;
+}
+
+.acceso-dropdown{
+    position:relative;
+    display:inline-block;
+}
+
+.acceso-btn{
+    padding:10px 20px;
+    border:1px solid #3a66cc;
+    background:white;
+    color:#3a66cc;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.acceso-content{
+    display:none;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:110%;
+    width:700px;
+    max-width:90vw;
+    background:white;
+    border:1px solid #ccc;
+    border-radius:10px;
+    padding:25px;
+    text-align:left;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    z-index:1000;
+}
+
+.acceso-content h3{
+    margin-top:15px;
+    margin-bottom:8px;
+    color:#3a66cc;
+    font-size:16px;
+}
+
+.acceso-content p{
+    font-size:14px;
+    margin-bottom:10px;
+    color:#444;
+}
+
+.acceso-dropdown:hover .acceso-content{
+    display:block;
+}
+
+
+nav a{
+    background:white;
+    text-decoration:none;
+    color:black;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.hero{
+    background:white;	
+    text-align:center;
+    padding:50px 20px 30px;
+}
+
+.hero-logo{
+    width:90px;
+    height:90px;
+    margin:0 auto 15px;
+    border-radius:10px;
+}
+
+.hero h1{
+    background:white;
+    font-size:48px;
+    font-weight:300;
+    margin-bottom:10px;
+}
+
+.hero p{
+    background:white;
+    color:#666;
+    margin-bottom:25px;
+}
+
+.hero button{
+    padding:10px 20px;
+    border:1px solid #3a66cc;
+    background:white;
+    color:#3a66cc;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.container{
+    background:white;
+    width:1100px;
+    margin:0 auto;
+    background:white;
+}
+
+.grid{
+    background:white;
+    display:grid;
+    grid-template-columns:repeat(12, 1fr);
+    gap:15px;
+    margin-bottom:60px;
+}
+
+.card{
+    border-radius:22px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    background-size:cover;
+    background-position:center;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0);
+    transition:background 0.3s ease;
+    z-index:1;
+}
+
+/* Oscurecer al hacer hover */
+.card:hover::before{
+    background:rgba(0,0,0,0.45);
+}
+
+.card span,
+.card{
+    position:relative;
+    z-index:2;
+}
+
+.news-card h4 a{
+    color:#3a66cc;
+    text-decoration:none;
+}
+
+.infantil,
+.primaria,
+.eso{
+    height:140px;
+}
+
+.bachiller,
+.fp,
+.semipresencial,
+.adultos{
+    height:220px;
+}
+
+.ceed,
+.especiales,
+.iseacv{
+    height:140px;
+}
+
+.profesorado,
+.autoformacion,
+.docente{
+    height:140px;
+}
+
+.infantil{ 
+    background-image:url("infantil.png"); 
+    grid-column:span 3;
+}
+
+.primaria{ 
+    background-image:url("primaria.png"); 
+    grid-column:span 6;
+}
+
+.eso{ 
+    background-image:url("eso.png"); 
+    grid-column:span 3;
+}
+
+.bachiller{ 
+    background-image:url("bachiller.png"); 
+    grid-column:span 3;
+}
+
+.fp{ 
+    background-image:url("FP presencial.png"); 
+    grid-column:span 3;
+}
+
+.semipresencial{ 
+    background-image:url("Semipresencial.png"); 
+    grid-column:span 3;
+}
+
+.adultos{ 
+    background-image:url("Formacio adultos.png"); 
+    grid-column:span 3;
+}
+
+.ceed{ 
+    background-image:url("ceed.png"); 
+    grid-column:span 6;
+}
+
+.especiales{ 
+    background-image:url("Especiales.png"); 
+    grid-column:span 3;
+}
+
+.iseacv{ 
+    background-image:url("iseacv.png"); 
+    grid-column:span 3;
+}
+
+.profesorado{ 
+    background-image:url("profesorado.png"); 
+    grid-column:span 3;
+}
+
+.autoformacion{ 
+    background-image:url("autoformacion.png"); 
+    grid-column:span 3;
+}
+
+.docente{ 
+    background-image:url("docente.png"); 
+    grid-column:span 6;
+}
+
+
+.noticias{
+    background:white;
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.noticias h2{
+    font-size:36px;
+    font-weight:300;
+    letter-spacing:2px;
+    margin-bottom:30px;
+    color:#6c8cff;
+}
+
+.news-grid{
+    background:white;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+    width:900px;
+    margin:0 auto 20px;
+}
+
+.news-card{
+    border:2px solid #6c8cff;
+    padding:15px;
+    text-align:left;
+    background:white;
+}
+
+.news-card h4{
+    color:#3a66cc;
+    font-size:14px;
+    margin-bottom:10px;
+    background:white;
+}
+
+.news-card p{
+    font-size:12px;
+    color:#555;
+    background:white;
+}
+
+.noticias button{
+    padding:8px 18px;
+    border:none;
+    background:#6c8cff;
+    color:white;
+    border-radius:6px;
+}
+
+.promo{
+    width:900px;
+    margin:0 auto 60px;
+    background:#f7f8f9;
+    padding:30px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.itedu-logo{
+    width:180px;
+    height:80px;
+}
+
+.promo-right{
+    text-align:right;
+}
+
+.promo-right button{
+    background:#f0b400;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    color:white;
+}
+
+footer{
+    border-top:1px solid #ccc;
+    text-align:center;
+    padding:20px;
+    font-size:12px;
+    background:#f8f8f8;
+}
+
+@media(max-width:1100px){
+    .container{width:90%;}
+    .news-grid{width:100%;}
+    .promo{width:90%;flex-direction:column;gap:20px;text-align:center;}
+}
+
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .card{
+        grid-column:span 2 !important;
+    }
+
+    .news-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+    <div class="logos">
+        <img src="logo-gva.png" alt="Logo gva">
+        <a href="index.html">
+            <img src="logo-aules1.png" alt="Logo aules" class="logo-aules">
+        </a>
+    </div>
+
+    <div class="right">
+        <div class="search-box">
+            <input type="text" placeholder="Buscar">
+        </div>
+        <div>Val | Cas</div>
+    </div>
+</div>
+
+<nav>
+    <a href="https://portal.edu.gva.es/aules/es/inicio/">INICIO</a>
+    <a href="https://portal.edu.gva.es/aules/es/formacion/">FORMACIÓN</a>
+    <a href="https://portal.edu.gva.es/aules/es/noticias/">NOTICIAS</a>
+    <a href="https://portal.edu.gva.es/aules/es/soporte/">SOPORTE</a>
+</nav>
+
+<section class="hero">
+    <img src="logo-aules2.png" alt="Logo aules2">
+    <p>¡Plataforma educativa de e-learning para continuar tu formación en línea!</p>
+    <div class="acceso-dropdown">
+    <button class="acceso-btn">¿CÓMO PUEDO ACCEDER?</button>
+
+    <div class="acceso-content">
+        <h3>1. ALUMNADO (Usuarios/as matriculados en ITACA)</h3>
+        <p>
+        El nombre de usuario es vuestro NIA. La contraseña inicial son las 3 primeras letras del apellido en minúscula, 
+        seguida de vuestra fecha de nacimiento (ddmma). Al acceder por primera vez, tenéis que cambiar vuestra contraseña.
+        </p>
+        <p>
+        Si tenéis problemas con la contraseña, clicad el enlace «¿Has olvidado el nombre de usuario o la contraseña?» 
+        que encontraréis en la página de acceso de vuestro sabor de Aules y seguid las instrucciones.
+        </p>
+        <p>
+        En caso de no recibir un correo de confirmación, contactad con el profesorado del curso.
+        </p>
+        <p>
+        En caso de recibir un correo indicando que «en este lugar no se pueden cambiar las contraseñas», 
+        probad con el método 2.
+        </p>
+
+        <h3>2. DOCENTES (usuarios/usuarias GVA)</h3>
+        <p>
+        Acceded a Aules con vuestro DNI/NIE y la clave de ITACA.
+        </p>
+        <p>
+        Si no recordáis vuestra contraseña, seguid este enlace:
+        <a href="https://acces.edu.gva.es/escriptori" target="_blank">
+            https://acces.edu.gva.es/escriptori
+        </a>
+        </p>
+        <p>
+        Desde este enlace podréis reiniciar vuestra contraseña mediante uno de estos métodos: 
+        DNI/NIE, Identitat Digital, certificado digital o Cl@ve.
+        </p>
+
+        <h3>3. Otros usuarios/usuarias</h3>
+        <p>
+        Para usuarios con un acceso diferente, si no recordáis vuestro nombre de usuario o la contraseña, 
+        poned una incidencia a <a href="https://gvasai.edu.gva.es/" target="_blank">
+            gvaSAI</a>.
+        </p>
+    </div>
+</div>
+
+</section>
+
+<div class="container">
+<div class="grid">
+
+    <!-- FILA 1 -->
+    <a href="https://aules.edu.gva.es/infantil/" class="card infantil"></a>
+    <a href="https://aules.edu.gva.es/primaria/" class="card primaria"></a>
+    <a href="https://portal.edu.gva.es/aules/es/eso/" class="card eso"></a>
+
+    <!-- FILA 2 -->
+    <a href="https://aules.edu.gva.es/batxillerat/" class="card bachiller"></a>
+    <a href="https://aules.edu.gva.es/fp/" class="card fp"></a>
+    <a href="https://aules.edu.gva.es/semipresencial/" class="card semipresencial"></a>
+    <a href="https://aules.edu.gva.es/fpa/" class="card adultos"></a>
+
+    <!-- FILA 3 -->
+    <a href="https://aules.edu.gva.es/ed/" class="card ceed"></a>
+    <a href="https://aules.edu.gva.es/especials/" class="card especiales"></a>
+    <a href="https://aules.edu.gva.es/iseacv/" class="card iseacv"></a>
+
+    <!-- FILA 4 -->
+    <a href="https://aules.edu.gva.es/formaciodelprofessorat/" class="card profesorado"></a>
+    <a href="https://aules.edu.gva.es/autoformacio/" class="card autoformacion"></a>
+    <a href="https://aules.edu.gva.es/docent/" class="card docente"></a>
+
+</div>
+</div>
+
+<section class="noticias">
+    <h2>NOTICIAS</h2>
+
+    <div class="news-grid">
+        <div class="news-card">
+            <h4><a href="https://portal.edu.gva.es/aules/es/desactivacion-de-blogs-de-usuario-en-aules-alternativa-en-portaledu-blogs-va/" target="_blank">
+            Desactivació de Blogs d’usuari en Aules: alternatives vàries</a></h4>
+            <p>El dia 30 de gener de 2026, es desactivarà la funcionalitat de Blogs d’usuari en Aules. Esta mesura s’adopta perquè les entrades publicades per l’alumnat en els seus blogs resulten … <a href="https://portal.edu.gva.es/aules/es/desactivacion-de-blogs-de-usuario-en-aules-alternativa-en-portaledu-blogs-va/" target="_blank">
+            Llegir més / leer más</a></p>
+        </div>
+
+        <div class="news-card">
+            <h4><a href="https://portal.edu.gva.es/aules/es/importacio-de-rubriques-en-format-csv-es/" target="_blank">
+            Importación de rúbricas en formato CSV</a></h4>
+            <p>En enero de 2026 se ha actualizado la extensión que permite crear una rúbrica en una hoja de cálculo o programa de edición de textos e importarla como archivo CSV … <a href="https://portal.edu.gva.es/aules/es/importacio-de-rubriques-en-format-csv-es/" target="_blank">
+            Llegir més / leer más</a></p>
+        </div>
+
+        <div class="news-card">
+            <h4><a href="https://portal.edu.gva.es/aules/es/desactivacion-de-blogs-de-usuario-en-aules-alternativa-en-portaledu-blogs-2/" target="_blank">
+            Desactivación de Blogs de usuario en Aules: alternativas varias</a></h4>
+            <p>El día 30 de enero de 2026, se desactivará la funcionalidad de Blogs de usuario en Aules. Esta medida se adopta porque las entradas publicadas por el alumnado en sus … <a href="https://portal.edu.gva.es/aules/es/desactivacion-de-blogs-de-usuario-en-aules-alternativa-en-portaledu-blogs-2/" target="_blank">
+            Llegir més / leer más</a></p>
+        </div>
+    </div>
+
+    <button onclick="window.location.href='https://portal.edu.gva.es/aules/es/noticias/'">Más noticias...</button>
+</section>
+
+<div class="promo">
+    <img src="ITEDU.png" alt="Logo ITEDU">
+
+    <div class="promo-right">
+        <p>Descubre las últimas noticias educativas</p>
+        <button onclick="window.location.href='https://portal.edu.gva.es/itedugva/es/'">Canal de Innovación Tecnológica Educativa</button>
+    </div>
+</div>
+
+<footer>
+    © 2026 Generalitat Valenciana<br>
+    Conselleria de Educación, Cultura y Universidades
+</footer>
+
+</body>
+</html>
